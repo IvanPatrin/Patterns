@@ -1,7 +1,6 @@
 package tests;
 
 import helpers.ScreenshotHelper;
-import helpers.WaitHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -17,18 +16,16 @@ import java.util.List;
 
 public class CaseTwoTest extends BaseTest {
     private Logger logger = LogManager.getLogger(CaseTwoTest.class);
-    List<String> actualListAppliances;
-    int actualCountMakeCooking;
+    private List<String> actualListAppliances;
+    private int actualCountMakeCooking;
 
     @Test
-    public void SecondTest() {
+    public void checkListLinksAppliancesTest() {
         // Arrange
         List<String> expectedListAppliance = new ArrayList<>();
         expectedListAppliance.add("Встраиваемая техника");
         expectedListAppliance.add("Техника для кухни");
         expectedListAppliance.add("Техника для дома");
-        int expectedCountMakeCooking = 5;
-        int expectedCountStoves = 100;
 
         // Act
         StartPage startPage = getStartPage();
@@ -37,10 +34,28 @@ public class CaseTwoTest extends BaseTest {
         // Assert
         // Проверка на отображение ссылок (Встраиваемая техника, Техника для кухни, Техника для дома)
         startPageMatcher.checkListLinksAppliances(expectedListAppliance, actualListAppliances);
-        // Проверка колиечства ссылок в подменю 'Приготовление пищи' больше 5
-        startPageMatcher.checkSizeListCooking(expectedCountMakeCooking, actualCountMakeCooking);
+    }
+
+    @Test
+    public void checkSizeListCookingTest() {
+        // Arrange
+        int expectedCountMakeCooking = 5;
 
         // Act
+        StartPage startPage = getStartPage();
+        StartPageMatcher startPageMatcher = new StartPageMatcher(startPage);
+
+        // Assert
+        // Проверка колиечства ссылок в подменю 'Приготовление пищи' больше 5
+        startPageMatcher.checkSizeListCooking(expectedCountMakeCooking, actualCountMakeCooking);
+    }
+    @Test
+    public void checkStoveCountTest() {
+        // Arrange
+        int expectedCountStoves = 100;
+
+        // Act
+        StartPage startPage = getStartPage();
         StovesPage stovesPage = new StovesPage(driver);
         stovesPage.getLinkElectricStove().click();
         ScreenshotHelper.makeScreenshot();
@@ -50,8 +65,6 @@ public class CaseTwoTest extends BaseTest {
         // Assert
         // Проверка на отображение ссылок (Встраиваемая техника, Техника для кухни, Техника для дома)
         electricStovesPageMatcher.checkStoveCount(expectedCountStoves);
-
-
     }
 
     public StartPage getStartPage() {

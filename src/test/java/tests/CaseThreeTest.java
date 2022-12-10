@@ -23,11 +23,9 @@ public class CaseThreeTest extends BaseTest {
     private Logger logger = LogManager.getLogger(CaseThreeTest.class);
 
     @Test
-    public void thirdCase() {
+    public void checkPageLaptopTitleTest() {
 
         // Arrange
-        String expectedCompany = "ASUS";
-        String expectedRam = "32 ГБ";
 
         // Act
         FirstLaptopPage firstLaptopPage = getFirstLaptopPage();
@@ -35,12 +33,36 @@ public class CaseThreeTest extends BaseTest {
 
         // Assert
         firstLaptopPageMatcher.checkPageLaptopTitle(expectedNameTitle);
-        firstLaptopPageMatcher.checkLaptopCharacteristicsTitle(expectedCompany,firstLaptopPage.getCharacteristicsTitle());
-        firstLaptopPageMatcher.checkRamText(expectedRam, firstLaptopPage.getLaptopRamText());
-
-
-
     }
+
+    @Test
+    public void checkLaptopCharacteristicsTitleTest() {
+
+        // Arrange
+        String expectedCompany = "ASUS";
+
+        // Act
+        FirstLaptopPage firstLaptopPage = getFirstLaptopPage();
+        FirstLaptopPageMatcher firstLaptopPageMatcher = new FirstLaptopPageMatcher(firstLaptopPage);
+
+        // Assert
+        firstLaptopPageMatcher.checkLaptopCharacteristicsTitle(expectedCompany,firstLaptopPage.getCharacteristicsTitle());
+    }
+
+    @Test
+    public void checkRamTextTest() {
+
+        // Arrange
+        String expectedRam = "32 ГБ";
+
+        // Act
+        FirstLaptopPage firstLaptopPage = getFirstLaptopPage();
+        FirstLaptopPageMatcher firstLaptopPageMatcher = new FirstLaptopPageMatcher(firstLaptopPage);
+
+        // Assert
+        firstLaptopPageMatcher.checkRamText(expectedRam, firstLaptopPage.getLaptopRamText());
+    }
+
 
     public FirstLaptopPage getFirstLaptopPage() {
         Selenium4Listener listener = new Selenium4Listener();

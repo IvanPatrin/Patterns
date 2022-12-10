@@ -36,7 +36,6 @@ public class StartPage extends BasePage{
     private WebElement linkCooking;
 
     @FindBy(xpath = "//a[@class ='ui-link menu-desktop__popup-link']")
-    @CacheLookup
     private List<WebElement> listCooking;
 
     @FindBy(xpath = "(//a[text() = 'Плиты и печи'])")

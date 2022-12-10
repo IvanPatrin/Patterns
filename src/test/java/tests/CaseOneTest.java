@@ -16,12 +16,9 @@ public class CaseOneTest extends BaseTest {
     private Logger logger = LogManager.getLogger(CaseOneTest.class);
 
     @Test
-    public void firstTest() {
+    public void checkPageTitleTextTest() {
         // Arrange
         String expectedTitle = "Бытовая техника";
-        String expectedTitle2 = "Техника для кухни";
-        String expectedLink = "Собрать свою кухню";
-        int expectedSize = 5;
 
         // Act
         AppliancesPage appliancesPage = getAppliancesPage();
@@ -30,9 +27,16 @@ public class CaseOneTest extends BaseTest {
         // Assert
         // Проверка отображения текста Бытовая техника
         appliancesPageMatcher.checkPageTitleText(expectedTitle);
+    }
+
+    @Test
+    public void checkTextKitchenAppliancesTest() {
+        // Arrange
+        String expectedTitle2 = "Техника для кухни";
 
         // Act
         // Переход по ссылке Техника для кухни
+        AppliancesPage appliancesPage = getAppliancesPage();
         appliancesPage.getLinkKitchenAppliances().click();
         ScreenshotHelper.makeScreenshot();
         KitchenAppliancesPage kitchenAppliancesPage = new KitchenAppliancesPage(driver);
@@ -42,16 +46,44 @@ public class CaseOneTest extends BaseTest {
         // Assert
         // Проверка отображения текста Техника для кухни
         kitchenAppliancesPageMatcher.checkTextKitchenAppliances(expectedTitle2);
+    }
+
+    @Test
+    public void checkTextMakeKitchenTest(){
+        // Arrange
+        String expectedLink = "Собрать свою кухню";
+
+        // Act
+        // Переход по ссылке Техника для кухни
+        AppliancesPage appliancesPage = getAppliancesPage();
+        appliancesPage.getLinkKitchenAppliances().click();
+        ScreenshotHelper.makeScreenshot();
+        KitchenAppliancesPage kitchenAppliancesPage = new KitchenAppliancesPage(driver);
+        KitchenAppliancesPageMatcher kitchenAppliancesPageMatcher = new KitchenAppliancesPageMatcher(kitchenAppliancesPage);
+
+        // Assert
         // Проверка отображения текста Техника для кухни
         kitchenAppliancesPageMatcher.checkTextMakeKitchen(expectedLink);
 
+    }
+    @Test
+    public void checkSizeKitchenAppliancesTest(){
+        // Arrange
+        int expectedSize = 5;
+
         // Act
         // Вывод в логи названия всех категорий страницы 'Техника для кухни'
+        AppliancesPage appliancesPage = getAppliancesPage();
+        appliancesPage.getLinkKitchenAppliances().click();
+        ScreenshotHelper.makeScreenshot();
+        KitchenAppliancesPage kitchenAppliancesPage = new KitchenAppliancesPage(driver);
+        KitchenAppliancesPageMatcher kitchenAppliancesPageMatcher = new KitchenAppliancesPageMatcher(kitchenAppliancesPage);
         kitchenAppliancesPage.getElementsKitchenAppliances();
 
         // Assert
         // Проверка, что количество категорий больше 5
         kitchenAppliancesPageMatcher.checkSizeKitchenAppliances(expectedSize);
+
     }
 
 
